@@ -2,8 +2,6 @@
 
 Shifts the entry title from the tabbed area to the sidebar, above the slug input 🙏. Checkout my other plugin to set more permissions on your fields and tabs: [https://github.com/thejoshsmith/craft-fab-permissions](https://github.com/thejoshsmith/craft-fab-permissions)
 
-![Screenshot](resources/img/plugin-logo.png)
-
 ## Requirements
 
 This plugin requires Craft CMS 3.0.0-beta.23 or later.
