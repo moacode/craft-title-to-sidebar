@@ -1,0 +1,40 @@
+{
+    "name": "thejoshsmith/craft-title-to-sidebar",
+    "description": "Moves the title field to the sidebar",
+    "type": "craft-plugin",
+    "version": "1.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "title to sidebar"
+    ],
+    "support": {
+        "docs": "https://github.com/thejoshsmith/title-to-sidebar/blob/master/README.md",
+        "issues": "https://github.com/thejoshsmith/title-to-sidebar/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Josh Smith <me@joshsmith.dev>",
+            "homepage": "https://www.joshsmith.dev"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0-RC1"
+    },
+    "autoload": {
+        "psr-4": {
+          "thejoshsmith\\titletosidebar\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Title to Sidebar",
+        "handle": "craft-title-to-sidebar",
+        "hasCpSettings": false,
+        "hasCpSection": false,
+        "changelogUrl": "https://raw.githubusercontent.com/thejoshsmith/title-to-sidebar/master/CHANGELOG.md",
+        "class": "thejoshsmith\\titletosidebar\\Plugin"
+    }
+}
