@@ -7,7 +7,7 @@ use craft\web\AssetBundle;
 use craft\web\assets\cp\CpAsset;
 
 /**
- * Expanded Matrix AssetBundle
+ * Title To Sidebar AssetBundle
  * @author    Josh Smith
  * @package   ExpandedMatrix
  * @since     1.0.0
@@ -28,11 +28,6 @@ class TitleToSidebarAsset extends AssetBundle
         $this->js = [
             'js/titleToSidebar.js',
         ];
-
-        // $this->css = [
-        //     'css/animate.min.css',
-        //     'css/expandedMatrix.css',
-        // ];
 
         parent::init();
     }
