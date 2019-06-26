@@ -105,8 +105,8 @@ class Plugin extends CraftPlugin
                             return '<script>' .
                                 'window.titleToSidebar = {};' .
                                 'window.titleToSidebar.hasTitleField = '.(($hasTitleField || $hasTitleError) ? 'true': 'false').';' .
-                                'window.titleToSidebar.titleName = \''.($entry->title ?? '').'\';' .
-                                'window.titleToSidebar.titleLabel = \''.($entryType->titleLabel ?? '').'\';' .
+                                'window.titleToSidebar.titleName = \''.(addslashes($entry->title) ?? '').'\';' .
+                                'window.titleToSidebar.titleLabel = \''.(addslashes($entryType->titleLabel) ?? '').'\';' .
                                 'window.titleToSidebar.titleError = \''.$titleError.'\';' .
                                 'window.titleToSidebar.hasTitleError = \''.$hasTitleError.'\';' .
                                 'window.titleToSidebar.errors = '.json_encode($errors).';' .

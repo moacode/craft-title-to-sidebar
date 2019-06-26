@@ -9,7 +9,7 @@
  */
 ;(function($){
 
-    if( window.titleToSidebar.hasTitleField == null || window.titleToSidebar.hasTitleField === false ) return;
+    if( window.titleToSidebar == null || window.titleToSidebar.hasTitleField == null || window.titleToSidebar.hasTitleField === false ) return;
 
     $('#settings').prepend(
         '<div class="field" id="title-sidebar">' +
