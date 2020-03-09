@@ -23,7 +23,7 @@ use yii\base\Event;
  *
  * @author    Josh Smith <me@joshsmith.dev>
  * @package   TitleToSidebar
- * @since     1.0.0
+ * @since     1.1.0
  *
  */
 class Plugin extends CraftPlugin
@@ -36,7 +36,7 @@ class Plugin extends CraftPlugin
     /**
      * @var string
      */
-    public $schemaVersion = '1.0.0';
+    public $schemaVersion = '1.1.0';
 
     /**
      * @inheritdoc
@@ -79,18 +79,27 @@ class Plugin extends CraftPlugin
                 // Only run on the entries edit template
                 switch ($event->template) {
                     case 'entries/_edit':
+                    case 'commerce/products/_edit':
 
                         // Load asset
                         TitleToSidebarAsset::register(Craft::$app->view);
 
                         // Extract variables from event variables
-                        $entry = $event->variables['entry'];
-                        $entryType = $event->variables['entryType'];
+                        if ($event->template == 'commerce/products/_edit') {
+                            $entry = $event->variables['product'];
+                            $entryType = $event->variables['productType'];
+                            $hasTitleField = true;
+                            $hook = 'cp.commerce.product.edit.details';
+                        } else {
+                            $entry = $event->variables['entry'];
+                            $entryType = $event->variables['entryType'];
+                            $hasTitleField = $entryType->hasTitleField;
+                            $hook = 'cp.entries.edit.details';
+                        }
 
                         // Cache errors
                         $titleError = $entry->getFirstError('title');
                         $hasTitleError = strlen($entry->getFirstError('title')) > 0;
-                        $hasTitleField = $entryType->hasTitleField;
 
                         $errors = [];
                         if( $hasTitleError && count($entry->getErrors()) >= 1 ){
@@ -100,7 +109,7 @@ class Plugin extends CraftPlugin
                         }
 
                         // Register a JS variable that can be referenced from the asset bundle
-                        Craft::$app->view->hook('cp.entries.edit.details', function(array &$context) use (
+                        Craft::$app->view->hook($hook, function(array &$context) use (
                             $entryType, $entry, $titleError, $hasTitleError, $errors, $hasTitleField) {
                             return '<script>' .
                                 'window.titleToSidebar = {};' .
@@ -108,13 +117,18 @@ class Plugin extends CraftPlugin
                                 'window.titleToSidebar.titleName = \''.(addslashes($entry->title) ?? '').'\';' .
                                 'window.titleToSidebar.titleLabel = \''.(addslashes($entryType->titleLabel) ?? '').'\';' .
                                 'window.titleToSidebar.titleError = \''.$titleError.'\';' .
+                                'window.titleToSidebar.entryType = \''.$entryType->handle.'\';' .
                                 'window.titleToSidebar.hasTitleError = \''.$hasTitleError.'\';' .
                                 'window.titleToSidebar.errors = '.json_encode($errors).';' .
                             '</script>';
                         });
 
                         // Force the title field to be hidden
-                        $entryType->hasTitleField = false;
+                        if ($event->template == 'commerce/products/_edit') {
+                            $entryType->hasVariantTitleField = false;
+                        } else {
+                            $entryType->hasTitleField = false;
+                        }
 
                     break;
                 }

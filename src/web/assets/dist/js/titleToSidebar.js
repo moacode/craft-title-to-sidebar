@@ -5,13 +5,20 @@
  * @copyright Copyright (c) 2019 Josh Smith
  * @link      https://www.joshsmith.dev
  * @package   Title to Sidebar
- * @since     1.0.0
+ * @since     1.1.0
  */
 ;(function($){
 
     if( window.titleToSidebar == null || window.titleToSidebar.hasTitleField == null || window.titleToSidebar.hasTitleField === false ) return;
 
-    $('#settings').prepend(
+    var target = '#settings';
+
+    if( window.titleToSidebar.entryType == 'product' ){
+        $('#title-field').remove();
+        var target = '#details .meta:first-of-type';
+    }
+
+    $(target).prepend(
         '<div class="field" id="title-sidebar">' +
             '<div class="heading">' +
                 '<label id="title-label" for="title">'+(window.titleToSidebar.titleLabel || '')+'</label>' +
