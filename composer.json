@@ -2,7 +2,7 @@
     "name": "thejoshsmith/craft-title-to-sidebar",
     "description": "Moves the title field to the sidebar",
     "type": "craft-plugin",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "keywords": [
         "craft",
         "cms",
