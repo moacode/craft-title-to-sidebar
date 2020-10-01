@@ -86,6 +86,7 @@ class Plugin extends CraftPlugin
                         // Extract variables from event variables
                         $entry = $event->variables['entry'];
                         $entryType = $event->variables['entryType'];
+                        $titleLabel = $entryType->fieldLayout->getField('title')->label();
 
                         // Cache errors
                         $titleError = $entry->getFirstError('title');
@@ -101,12 +102,12 @@ class Plugin extends CraftPlugin
 
                         // Register a JS variable that can be referenced from the asset bundle
                         Craft::$app->view->hook('cp.entries.edit.details', function(array &$context) use (
-                            $entryType, $entry, $titleError, $hasTitleError, $errors, $hasTitleField) {
+                            $entryType, $entry, $titleError, $hasTitleError, $errors, $hasTitleField, $titleLabel) {
                             return '<script>' .
                                 'window.titleToSidebar = {};' .
                                 'window.titleToSidebar.hasTitleField = '.(($hasTitleField || $hasTitleError) ? 'true': 'false').';' .
                                 'window.titleToSidebar.titleName = \''.(addslashes($entry->title) ?? '').'\';' .
-                                'window.titleToSidebar.titleLabel = \''.(addslashes($entryType->titleLabel) ?? '').'\';' .
+                                'window.titleToSidebar.titleLabel = \''.(addslashes($titleLabel)).'\';' .
                                 'window.titleToSidebar.titleError = \''.$titleError.'\';' .
                                 'window.titleToSidebar.hasTitleError = \''.$hasTitleError.'\';' .
                                 'window.titleToSidebar.errors = '.json_encode($errors).';' .
